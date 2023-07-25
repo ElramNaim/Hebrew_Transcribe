@@ -4,12 +4,20 @@ import BeatLoader from "react-spinners/BeatLoader";
 
 const SpeechToText = () => {
   const [transcribedText, setTranscribedText] = useState("");
-  const [Loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSpeechToText = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("audio_file", e.target.audioFile.files[0]);
+    const file = e.target.audioFile.files[0];
+
+    if (!file) {
+      setError("Please select an audio file.");
+      return;
+    }
+
+    formData.append("audio_file", file);
 
     try {
       setLoading(true);
@@ -23,22 +31,26 @@ const SpeechToText = () => {
         }
       );
       setTranscribedText(response.data.transcribed_text);
-      setLoading(false);
+      setError("");
     } catch (error) {
-      console.error("Error transcribing speech:", error);
+      setTranscribedText("");
+      setError("Error transcribing the audio.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const MyText = transcribedText && <p> {transcribedText}</p>;
+  const MyText = () => <p>{transcribedText}</p>;
 
   return (
     <div>
       <h2>המתמלל</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSpeechToText}>
         <input type="file" name="audioFile" accept="audio/*" />
         <button type="submit">Transcribe</button>
       </form>
-      {Loading ? <BeatLoader color="#36d7b7" /> : MyText}
+      {loading ? <BeatLoader color="#36d7b7" /> : <MyText />}
     </div>
   );
 };
