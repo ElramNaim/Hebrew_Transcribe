@@ -1,8 +1,8 @@
 # Hebrew_Transcribe
 ## update 31.07  
-*download pipenv  
-*download concurrently  
-*type - npm start  
+* download pipenv  
+* download concurrently  
+* type - "npm start"  
 ## the long way :
 ### to start the backend:  
 * download pipenv
