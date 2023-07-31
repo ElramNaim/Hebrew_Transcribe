@@ -3,7 +3,7 @@
 * download pipenv  
 * download concurrently
   > npm install concurrently --save-dev
-* type
+* then:
   > npm start 
 ## the long way :
 ### to start the backend:  
