@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "concurrently": "^8.2.0"
-  },
-  "scripts": {
-    "start": "concurrently \"cd backend&&pipenv run python manage.py runserver\" \"cd frontend && npm start\""
-  }
-}
